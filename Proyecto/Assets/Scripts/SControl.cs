@@ -4,17 +4,20 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Rigidbody))]
 public class SControl: MonoBehaviour
 {
+    [SerializeField] Rigidbody playerRigidbody;
     bool moveforward;
     bool moveback;
     bool moveleft;
     bool moveright;
-    public Transform GroundCheck;     // Arrastra aquí el objeto "GroundCheck"
-    public float radioDeteccion = 0.1f; // Tamaño del chequeo
+    public Transform GroundCheck;     
+    public float radioDeteccion = 0.1f; 
     public LayerMask layerGround;
     public float jumpForce = 10f;
     bool isGrounded;
     [SerializeField,Range(0.001f,0.01f)]
     float speed = 0.01f;
+    float jumpoffset = 0.1f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +39,7 @@ public class SControl: MonoBehaviour
         }
         if (moveforward)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.forward * speed, ForceMode.Impulse);
+           playerRigidbody.AddForce(Vector3.forward * speed, ForceMode.Impulse);
         }
 
             if (Input.GetKeyDown(KeyCode.S))
@@ -50,7 +53,7 @@ public class SControl: MonoBehaviour
                 moveback = false;}
             if (moveback)
             {
-                GetComponent<Rigidbody>().AddForce(Vector3.back * speed, ForceMode.Impulse);
+               playerRigidbody.AddForce(Vector3.back * speed, ForceMode.Impulse);
             }
 
                 if (Input.GetKeyDown(KeyCode.A))
@@ -65,7 +68,7 @@ public class SControl: MonoBehaviour
                 }
                 if (moveleft)
                 {
-                    GetComponent<Rigidbody>().AddForce(Vector3.left * speed, ForceMode.Impulse);
+                   playerRigidbody.AddForce(Vector3.left * speed, ForceMode.Impulse);
                 }
 
         if (Input.GetKeyDown(KeyCode.D))
@@ -80,27 +83,23 @@ public class SControl: MonoBehaviour
         }
         if (moveright)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.right * speed, ForceMode.Impulse);
+           playerRigidbody.AddForce(Vector3.right * speed, ForceMode.Impulse);
         }
 
         isGrounded = Physics.CheckSphere(GroundCheck.position, radioDeteccion, layerGround);
 
-        // Esto imprimirá en la consola si está tocando el suelo o no en tiempo real
+        
         Debug.Log("Ground: " + isGrounded);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+            if((GetComponent<Rigidbody>().linearVelocity.y <= jumpoffset) &&
+                (GetComponent<Rigidbody>().linearVelocity.y >= -jumpoffset))
+                {
+                   playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
 
-        void OnDrawGizmosSelected()
-        {
-            if (GroundCheck != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(GroundCheck.position, radioDeteccion);
-            }
-        }
     }
+}
 }
 
