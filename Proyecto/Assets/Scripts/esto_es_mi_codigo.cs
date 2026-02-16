@@ -11,6 +11,8 @@ public class esto_es_mi_codigo : MonoBehaviour
     bool moveForward,moveRight,moveBack,moveLeft;
     [SerializeField,Range(0.01f,0.1f)]
     float speed=0.01f;
+    float jump=7f;
+    float jumpOffset=0.5f;
     // Update is called once per frame
     void Update()
     {
@@ -70,6 +72,16 @@ public class esto_es_mi_codigo : MonoBehaviour
         if(moveLeft)
         {
            GetComponent<Rigidbody>().AddForce(Vector3.left*speed, ForceMode.Impulse); 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if ((GetComponent<Rigidbody>().linearVelocity.y <= jumpOffset) &&
+              (GetComponent<Rigidbody>().linearVelocity.y >= -jumpOffset))
+            {
+                // Jump 
+                GetComponent<Rigidbody>().AddForce(Vector3.up * jump, ForceMode.Impulse);
+            }
         }
     }
 }
