@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Rigidbody))]
 public class SControl: MonoBehaviour
 {
+    [SerializeField] Transform cameraTrans;
     [SerializeField] Rigidbody playerRigidbody;
     bool moveforward;
     bool moveback;
@@ -39,7 +40,7 @@ public class SControl: MonoBehaviour
         }
         if (moveforward)
         {
-           playerRigidbody.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+           playerRigidbody.AddForce(cameraTrans.forward * speed, ForceMode.Impulse);
         }
 
             if (Input.GetKeyDown(KeyCode.S))
@@ -53,7 +54,7 @@ public class SControl: MonoBehaviour
                 moveback = false;}
             if (moveback)
             {
-               playerRigidbody.AddForce(Vector3.back * speed, ForceMode.Impulse);
+               playerRigidbody.AddForce(-cameraTrans.forward * speed, ForceMode.Impulse);
             }
 
                 if (Input.GetKeyDown(KeyCode.A))
@@ -68,7 +69,7 @@ public class SControl: MonoBehaviour
                 }
                 if (moveleft)
                 {
-                   playerRigidbody.AddForce(Vector3.left * speed, ForceMode.Impulse);
+                   playerRigidbody.AddForce(-cameraTrans.right * speed, ForceMode.Impulse);
                 }
 
         if (Input.GetKeyDown(KeyCode.D))
@@ -83,7 +84,7 @@ public class SControl: MonoBehaviour
         }
         if (moveright)
         {
-           playerRigidbody.AddForce(Vector3.right * speed, ForceMode.Impulse);
+           playerRigidbody.AddForce(cameraTrans.right * speed, ForceMode.Impulse);
         }
 
         isGrounded = Physics.CheckSphere(GroundCheck.position, radioDeteccion, layerGround);
