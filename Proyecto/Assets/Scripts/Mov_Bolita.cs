@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody))]
 public class NewMov_Bolita : MonoBehaviour
 {
+    [SerializeField] Rigidbody rigidBodyPlayer;
+    [SerializeField] Transform cameraTransform;
 
     bool moveForward;
     bool moveBackward;
@@ -16,7 +18,6 @@ public class NewMov_Bolita : MonoBehaviour
     [SerializeField]
     float jumpOffset = 0.5f;
 
-    [SerializeField] Rigidbody rigidBodyPlayer;
 
     // Update is called once per frame
     void Update()
@@ -37,7 +38,7 @@ public class NewMov_Bolita : MonoBehaviour
         }
         if (moveForward)
         {
-            rigidBodyPlayer.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+            rigidBodyPlayer.AddForce(cameraTransform.forward * speed, ForceMode.Impulse);
         }
 
         // Move Backward Instruction ---------------------------------
@@ -56,7 +57,7 @@ public class NewMov_Bolita : MonoBehaviour
         }
         if (moveBackward)
         {
-            rigidBodyPlayer.AddForce(Vector3.back * speed, ForceMode.Impulse);
+            rigidBodyPlayer.AddForce(-cameraTransform.forward * speed, ForceMode.Impulse);
         }
 
         // Move Left Instruction -------------------------------
@@ -75,7 +76,7 @@ public class NewMov_Bolita : MonoBehaviour
         }
         if (moveLeft)
         {
-            rigidBodyPlayer.AddForce(Vector3.left * speed, ForceMode.Impulse);
+            rigidBodyPlayer.AddForce(-cameraTransform.right * speed, ForceMode.Impulse);
         }
 
         // Move Right Instruction ------------------------------
@@ -94,7 +95,7 @@ public class NewMov_Bolita : MonoBehaviour
         }
         if (moveRight)
         {
-            rigidBodyPlayer.AddForce(Vector3.right * speed, ForceMode.Impulse);
+            rigidBodyPlayer.AddForce(cameraTransform.right * speed, ForceMode.Impulse);
         }
 
         // Move Jump Instruction ------------------------------
