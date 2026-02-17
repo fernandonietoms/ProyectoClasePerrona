@@ -4,17 +4,19 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody))]
 public class CONT_PlayerController : MonoBehaviour
 {
+    [Header("Player Component's References")]
+    [SerializeField] Transform cameraTransform;
     [SerializeField] Rigidbody playerRigidbody;
-    [Space]
     // Switches to move the player horizontally
     bool moveForward, moveBackward, moveLeft, moveRight;
+    [Space]
+    [Header("Player Movement")]
     // Variable of horizontal speed force
     [SerializeField, Range(0.001f, 0.1f)]
     float speed = 0.01f;
     // Variable of jump force
     [SerializeField, Range(5.0f, 15.0f)]
     float jump = 10.0f;
-    [Space]
     [SerializeField]
     float jumpOffset = 0.5f;
 
@@ -40,25 +42,26 @@ public class CONT_PlayerController : MonoBehaviour
         if (moveForward)
         {
             // Move the player in the given vector
-            playerRigidbody.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+            playerRigidbody.AddForce(cameraTransform.forward * speed, ForceMode.Impulse);
+            
         }
         // If moving is enabled...
         if (moveBackward)
         {
             // Move the player in the given vector
-            playerRigidbody.AddForce(Vector3.back * speed, ForceMode.Impulse);
+            playerRigidbody.AddForce(-cameraTransform.forward * speed, ForceMode.Impulse);
         }
         // If moving is enabled...
         if (moveLeft)
         {
             // Move the player in the given vector
-            playerRigidbody.AddForce(Vector3.left * speed, ForceMode.Impulse);
+            playerRigidbody.AddForce(-cameraTransform.right * speed, ForceMode.Impulse);
         }
         // If moving is enabled...
         if (moveRight)
         {
             // Move the player in the given vector
-            playerRigidbody.AddForce(Vector3.right * speed, ForceMode.Impulse);
+            playerRigidbody.AddForce(cameraTransform.right * speed, ForceMode.Impulse);
         }
     }
 
