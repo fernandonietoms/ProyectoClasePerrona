@@ -10,6 +10,7 @@ public class Bolita_ObstacleNavaja : Bolita_Obstacle
         if (collision.gameObject.TryGetComponent(out NewMov_Bolita playerController))
         {
             Debug.Log("Is Player");
+            GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         }
     }
 }

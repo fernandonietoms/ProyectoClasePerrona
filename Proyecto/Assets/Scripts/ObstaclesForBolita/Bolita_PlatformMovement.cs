@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(MeshCollider))]
-public class Bolita_Obstacle : MonoBehaviour
+[RequireComponent(typeof(MeshCollider))]
+public class Bolita_PlatformMovement : MonoBehaviour
 {
-    [Header("Obstacle Components")]
+    [Header("Platforms Components")]
     [SerializeField] bool canMove = false;
-    [SerializeField, Range(0, Mathf.Infinity)] float obstacleSpeed = 1.0f;
+    [SerializeField, Range(0, Mathf.Infinity)] float platformSpeed = 1.0f;
     [SerializeField] float waitingTime = 0.0f;
     [SerializeField] Transform startLocation;
     [SerializeField] Transform endLocation;
@@ -15,7 +15,7 @@ public class Bolita_Obstacle : MonoBehaviour
 
     protected virtual void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        Debug.Log("Obstacle Detected");
+        Debug.Log("This Platform is moving");
     }
 
     private void Start()
@@ -37,7 +37,7 @@ public class Bolita_Obstacle : MonoBehaviour
                     if (waitingTimeCoroutine == null)
                         waitingTimeCoroutine = StartCoroutine(WaitingTimer());
                 }
-                transform.position = Vector3.MoveTowards(transform.position, endLocation.position, Time.deltaTime * obstacleSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, endLocation.position, Time.deltaTime * platformSpeed);
             }
             else
             {
@@ -46,7 +46,7 @@ public class Bolita_Obstacle : MonoBehaviour
                     if (waitingTimeCoroutine == null)
                         waitingTimeCoroutine = StartCoroutine(WaitingTimer());
                 }
-                transform.position = Vector3.MoveTowards(transform.position, startLocation.position, Time.deltaTime * obstacleSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, startLocation.position, Time.deltaTime * platformSpeed);
             }
         }
     }
