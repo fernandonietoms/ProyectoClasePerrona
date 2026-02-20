@@ -10,7 +10,7 @@ public class SCR_ObstacleDani : MonoBehaviour
 {
     [Header("Obstacle Components")]
     [SerializeField] bool canMove = false;
-    [SerializeField, Range(0, Mathf.Infinity)] float obstacleSpeed = 1.0f;
+    [SerializeField, Range(0, 100)] float obstacleSpeed = 1.0f;
     [SerializeField] float waitingTime = 0.0f;
     [SerializeField] Transform startLocation;
     [SerializeField] Transform endLocation;
