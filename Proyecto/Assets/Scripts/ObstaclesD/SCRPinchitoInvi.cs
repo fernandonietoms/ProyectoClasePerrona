@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SCRPinchitoInvi : SCRObstacleDani
+public class SCRPinchitoInvi : SCR_ObstacleDani
 {
     protected override void OnCollisionEnter(Collision collision)
     {
