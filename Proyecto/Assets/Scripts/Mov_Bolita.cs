@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
-public class NewMov_Bolita : MonoBehaviour
+public class Bolita_PlayerMove : MonoBehaviour
 {
     [SerializeField] Rigidbody rigidBodyPlayer;
     [SerializeField] Transform cameraTransform;
@@ -10,6 +10,8 @@ public class NewMov_Bolita : MonoBehaviour
     bool moveBackward;
     bool moveLeft;
     bool moveRight;
+
+    public static float lifePlayer = 5.0f;
 
     [SerializeField, Range(0.001f,0.1f)]
     float speed = 0.01f;
@@ -22,6 +24,9 @@ public class NewMov_Bolita : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Vida del jugador
+        //float vidaPlayer = 5.0f;
+
         // Move Forward Instruction ----------------------------------
 
         // If the W key is pressed down...
@@ -108,6 +113,19 @@ public class NewMov_Bolita : MonoBehaviour
                 // Jump 
                 rigidBodyPlayer.AddForce(Vector3.up * jump, ForceMode.Impulse);
             }
+        }
+
+    }
+
+    protected virtual void OnCollisionEnter(UnityEngine.Collision collision)
+    {
+        Debug.Log("Aqui hay un obstaculo");
+
+        if (collision.gameObject.TryGetComponent(out Bolita_ObstacleNavaja obstacleNavaja))
+        {
+            Debug.Log("Es un Obstaculo que me hace daño");
+            // Mando a llamar a mi Barra de Vida
+            Bolita_LifeBar.Lifes = 1;
         }
 
     }
