@@ -11,7 +11,7 @@ public class Damage_Invisible : Obstacle1
 
         {
             Debug.Log("Is player");
-            collision.gameObject.transform.localScale=new Vector3(0.1f,0.1f,0.1f);
+            collision.gameObject.transform.localScale=new Vector3(0.001f,0.001f,0.001f);
         }
     }
 
